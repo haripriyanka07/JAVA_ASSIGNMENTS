@@ -28,7 +28,7 @@ public class BST {
             System.out.println("not Present");
         else
             root = delete(root, k);
-            System.out.println("Deleted");
+            System.out.println("Deleted "+ k);
     }
     private BSTNode delete(BSTNode root, int data){
         BSTNode pt, pt2, n;
@@ -65,19 +65,22 @@ public class BST {
         }
         return root;
     }
-    public boolean search(int val) {
+    public boolean search(int val){
+        return search(root, val);
+    }
+    public boolean search(BSTNode r, int val) {
         boolean found = false;
-        while((root!=null) && !found){
-            int rval = root.getData();
-            if(val<rval)
-                root = root.getLeft();
-            else if (val < rval)
-                root = root.getRight();
+        while((r!=null) && !found){
+            int rval = r.getData();
+            if(val < rval)
+                r = r.getLeft();
+            else if (val > rval)
+                r = r.getRight();
             else {
                 found = true;
                 break;
             }
-            found = search(val);
+            found = search(r, val);
         }
         return found;
     }
@@ -102,10 +105,14 @@ public class BST {
         tree.insert(8);
         tree.insert(10);
         tree.inorder();
+        System.out.println();
         tree.delete(8);
         tree.delete(6);
         tree.delete(11);
         tree.inorder();
+        System.out.println();
+        System.out.println(tree.search(3));
+        System.out.println(tree.search(33));
     }
 }
 class BSTNode{
